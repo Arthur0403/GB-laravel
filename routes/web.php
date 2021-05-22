@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +16,18 @@ use App\Http\Controllers\MainController;
 |
 */
 
+/* fdmin */
+Route::group(['prefix' => 'admin'], function(){
+    Route::resource('/categories', AdminCategoryController::class);
+    Route::resource('/news', AdminNewsController::class);
+});
+
+
+/* main */
 Route::get('/', [MainController::class, 'index']);
-Route::get('/about', [MainController::class, 'about']);
-Route::get('/latest-news', [MainController::class, 'latestNews']);
-Route::get('/contact', [MainController::class, 'contact']);
-Route::get('/categories', [MainController::class, 'categories']);
-Route::get('/categories/{news}', [MainController::class, 'news']);
+Route::get('/about', [MainController::class, 'about'])->name('about');
+Route::get('/latest-news', [MainController::class, 'latestNews'])->name('latest-news');
+Route::get('/contact', [MainController::class, 'contact'])->name('contact');
+Route::get('/categories', [MainController::class, 'categories'])->name('categories');
+Route::get('/categories/{news}', [MainController::class, 'news'])->name('category.news');
 //Route::get('/error', [MainController::class, 'error']);
