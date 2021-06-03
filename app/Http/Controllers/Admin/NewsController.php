@@ -31,11 +31,23 @@ class NewsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        //
+        $newsFile = "/home/vagrant/code/laravel/logs/news.txt";
+        $createdNews = $request->all();
+        $resString = "[\n";
+        foreach ($createdNews as $key => $inputValue)
+        {
+            $resString .= "In field: $key - $inputValue; \n";
+        }
+        $resString .= "];\n";
+        $fp = fopen($newsFile, "a+");
+        fwrite($fp, $resString);
+        fclose($fp);
+        redirect('news/create');
+        return response()->json($createdNews);
     }
 
     /**

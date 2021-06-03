@@ -20,22 +20,33 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        //
+        $categoryFile = "/home/vagrant/code/laravel/logs/categories.txt";
+        $createdCategory = $request->only('name', 'author');
+        $resStr = "[\n";
+        foreach ($createdCategory as $key => $inputValue)
+        {
+            $resStr .= "In field: $key - $inputValue; \n";
+        }
+        $resStr .= "];\n";
+        $fp = fopen($categoryFile, "a+");
+        fwrite($fp, $resStr);
+        fclose($fp);
+        return response()->json($createdCategory);
     }
 
     /**
@@ -46,18 +57,18 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.categories.show');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        return view('admin.categories.edit');
     }
 
     /**

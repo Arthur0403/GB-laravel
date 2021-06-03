@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\MainController as AdminMainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,15 +17,16 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 |
 */
 
-/* fdmin */
+/* Admin */
 Route::group(['prefix' => 'admin'], function(){
+    Route::resource('/', AdminMainController::class);
     Route::resource('/categories', AdminCategoryController::class);
     Route::resource('/news', AdminNewsController::class);
 });
 
 
 /* main */
-Route::get('/', [MainController::class, 'index']);
+Route::get('/', [MainController::class, 'index'])->name('home');
 Route::get('/about', [MainController::class, 'about'])->name('about');
 Route::get('/latest-news', [MainController::class, 'latestNews'])->name('latest-news');
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
