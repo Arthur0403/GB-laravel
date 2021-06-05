@@ -8,7 +8,7 @@
         <div class="col-lg-12">
             <div class="trending-tittle">
                 <strong>Page not found</strong>
-                <!-- <p>Rem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
+                <!-- <p>Loremgit  ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
                 <div class="trending-animated">
                     <ul id="js-news" class="js-hidden">
                         <li class="news-item">Please, return to <a href="/">home page</a>...</li>

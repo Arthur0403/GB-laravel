@@ -46,6 +46,7 @@
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
+                                                        {{-- для того чтобы тут использовать хелпер нужно в категории передавать массив --}}
                                                         <h4><a href="/categories/welcome-to-the-best-model-winner-contest">Welcome To The Best Model  Winner Contest</a></h4>
                                                     </div>
                                                 </div>
