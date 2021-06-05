@@ -35,7 +35,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        $categoryFile = "/home/vagrant/code/laravel/logs/categories.txt";
+//        dd( dirname(__FILE__, 5));
+        $categoryFile = dirname(__FILE__, 5) . "/logs/categories.txt";
         $createdCategory = $request->only('name', 'author');
         $resStr = "[\n";
         foreach ($createdCategory as $key => $inputValue)

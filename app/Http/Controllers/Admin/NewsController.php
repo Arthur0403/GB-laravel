@@ -35,7 +35,7 @@ class NewsController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        $newsFile = "/home/vagrant/code/laravel/logs/news.txt";
+        $newsFile = dirname(__FILE__, 5) . "/logs/news.txt";
         $createdNews = $request->all();
         $resString = "[\n";
         foreach ($createdNews as $key => $inputValue)
