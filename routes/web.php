@@ -31,5 +31,5 @@ Route::get('/about', [MainController::class, 'about'])->name('about');
 Route::get('/latest-news', [MainController::class, 'latestNews'])->name('latest-news');
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
 Route::get('/categories', [MainController::class, 'categories'])->name('categories');
-Route::get('/categories/{news}', [MainController::class, 'news'])->name('category.news');
+Route::get('/categories/{id}', [MainController::class, 'news'])->name('category.news');
 //Route::get('/error', [MainController::class, 'error']);

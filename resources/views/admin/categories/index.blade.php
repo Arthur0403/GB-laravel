@@ -40,50 +40,56 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>
-                        #
-                    </td>
-                    <td>
-                        <a>
-                            Universe
-                        </a>
-                        <br>
-                        <small>
-                            Created 24.05.2021
-                        </small>
-                    </td>
-                    <td>
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <img alt="Avatar" class="table-avatar" src="/assets/admin/dist/img/avatar.png">
-                            </li>
-                        </ul>
-                    </td>
-                    <td class="project_progress">
-                        25.05.2021
-                    </td>
-                    <td class="project-state">
-                        <span class="badge badge-success">Active</span>
-                    </td>
-                    <td class="project-actions text-right">
-                        <a class="btn btn-primary btn-sm" href="{{ url('/admin/categories/1') }}">
-                            <i class="fas fa-folder">
-                            </i>
-                            View
-                        </a>
-                        <a class="btn btn-info btn-sm" href="{{url('/admin/categories/1/edit')}}">
-                            <i class="fas fa-pencil-alt">
-                            </i>
-                            Edit
-                        </a>
-                        <a class="btn btn-danger btn-sm" href="#">
-                            <i class="fas fa-trash">
-                            </i>
-                            Delete
-                        </a>
-                    </td>
-                </tr>
+                    @forelse($categories as $category)
+                        <tr>
+                            <td>
+                                {{ $category->id_category }}
+                            </td>
+                            <td>
+                                <a>
+                                    {{ $category->category_name }}
+                                </a>
+                                <br>
+                                <small>
+                                    {{ $category->created_at }}
+                                </small>
+                            </td>
+                            <td>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <img alt="Avatar" class="table-avatar" src="/assets/admin/dist/img/avatar.png">
+                                    </li>
+                                </ul>
+                            </td>
+                            <td class="project_progress">
+                                {{ $category->updated_at }}
+                            </td>
+                            <td class="project-state">
+                                <span class="badge badge-success">Active</span>
+                            </td>
+                            <td class="project-actions text-right">
+                                <a class="btn btn-primary btn-sm" href="{{ url('/admin/categories/1') }}">
+                                    <i class="fas fa-folder">
+                                    </i>
+                                    View
+                                </a>
+                                <a class="btn btn-info btn-sm" href="{{url('/admin/categories/1/edit')}}">
+                                    <i class="fas fa-pencil-alt">
+                                    </i>
+                                    Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm" href="#">
+                                    <i class="fas fa-trash">
+                                    </i>
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4">Записей нет</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

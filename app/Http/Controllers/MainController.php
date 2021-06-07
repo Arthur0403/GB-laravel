@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -28,19 +29,18 @@ class MainController extends Controller
 
     public function categories()
     {
-        return view('pages.categories');
+        $model = new News();
+
+        return view('pages.categories', [
+            'newsList' => $model->newsList(),
+        ]);
     }
 
-    public function news($news)
+    public function news($id)
     {
-        $news = explode('-', $news);
-        foreach($news as $key => $item)
-        {
-            $news[$key] = ucfirst($item);
-        }
-        $news = implode(' ', $news);
+        $model = new News();
 
-        return view('pages.news', ['news' => $news]);
+        return view('pages.news', ['news' => $model->news($id)]);
     }
 
     public function error()
