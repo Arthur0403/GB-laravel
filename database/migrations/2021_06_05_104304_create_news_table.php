@@ -14,15 +14,17 @@ class CreateNewsTable extends Migration
     public function up()
     {
         Schema::create('news', function (Blueprint $table) {
-            $table->bigIncrements('id_news');
+            $table->bigIncrements('id');
             $table->foreignId('id_category')
 //                ->constrained()
                 ->cascadeOnDelete()
-                ->cascadeOnUpdate();
+                ->cascadeOnUpdate()
+                ->nullable();
             $table->foreignId('id_resource')
 //                ->constrained()
                 ->cascadeOnDelete()
-                ->cascadeOnUpdate();
+                ->cascadeOnUpdate()
+                ->nullable();
             $table->string('news_title', 255);
             $table->text('news_description');
             $table->string('author', 190)->nullable();

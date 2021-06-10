@@ -36,14 +36,15 @@
                         <div class="card-body" style="display: block;">
                             <div class="form-group">
                                 <label for="inputName">News Name</label>
-                                <input type="text" id="inputTitle" class="form-control" name="title">
+                                <input type="text" id="inputTitle" class="form-control" name="news_title">
                             </div>
                             <div class="form-group">
                                 <label for="inputDescription">News Content</label>
-                                <textarea id="inputDescription" class="form-control" rows="4" name="description"></textarea>
+                                <textarea id="inputDescription" class="form-control" rows="4" name="news_description"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="inputStatus">Status</label>
+                                {{-- Нужно переписать миграцию                               --}}
                                 <select id="inputStatus" class="form-control custom-select" name="status">
                                     <option selected="">Draft</option>
                                     <option>Published</option>
@@ -56,7 +57,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputCategory">Category</label>
-                                <input type="text" id="inputCategory" class="form-control" name=""category>
+                                <input type="text" id="inputCategory" class="form-control" name="id_category">
                             </div>
                         </div>
                         <!-- /.card-body -->

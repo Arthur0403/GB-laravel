@@ -29,18 +29,14 @@ class MainController extends Controller
 
     public function categories()
     {
-        $model = new News();
-
         return view('pages.categories', [
-            'newsList' => $model->newsList(),
+            'newsList' => News::all(),
         ]);
     }
 
-    public function news($id)
+    public function news(News $news)
     {
-        $model = new News();
-
-        return view('pages.news', ['news' => $model->news($id)]);
+        return view('pages.news', ['news' => $news]);
     }
 
     public function error()

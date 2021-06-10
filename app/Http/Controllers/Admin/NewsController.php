@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -14,7 +15,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('admin.news.index');
+        $news = News::all();
+        return view('admin.news.index', ['news' => $news]);
     }
 
     /**
@@ -31,23 +33,33 @@ class NewsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request): \Illuminate\Http\JsonResponse
+    public function store(Request $request)
     {
-        $newsFile = dirname(__FILE__, 5) . "/logs/news.txt";
-        $createdNews = $request->all();
-        $resString = "[\n";
-        foreach ($createdNews as $key => $inputValue)
+//        $newsFile = dirname(__FILE__, 5) . "/logs/news.txt";
+//        $createdNews = $request->all();
+//        $resString = "[\n";
+//        foreach ($createdNews as $key => $inputValue)
+//        {
+//            $resString .= "In field: $key - $inputValue; \n";
+//        }
+//        $resString .= "];\n";
+//        $fp = fopen($newsFile, "a+");
+//        fwrite($fp, $resString);
+//        fclose($fp);
+//        redirect('news/create');
+//        return response()->json($createdNews);
+        $fields = $request->only('news_title', 'news_description', 'author');
+        $news = News::create($fields);
+        $fields['id_category'] = 1;
+
+        if($news)
         {
-            $resString .= "In field: $key - $inputValue; \n";
+            return redirect('admin/news');
         }
-        $resString .= "];\n";
-        $fp = fopen($newsFile, "a+");
-        fwrite($fp, $resString);
-        fclose($fp);
-        redirect('news/create');
-        return response()->json($createdNews);
+
+        return back();
     }
 
     /**

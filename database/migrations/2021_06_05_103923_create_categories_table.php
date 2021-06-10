@@ -14,7 +14,7 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->bigIncrements('id_category');
+            $table->bigIncrements('id');
             $table->string('category_name', 100);
             $table->text('category_description');
             $table->boolean('disabled')->default(false);
