@@ -51,7 +51,7 @@
                             </a>
                             <br>
                             <small>
-                                Created {{ $item->created_at }}
+                                Created {{ $item->created_at->format('d-m-Y H:i') }}
                             </small>
                         </td>
                         <td>
@@ -62,23 +62,32 @@
                             </ul>
                         </td>
                         <td class="project_progress">
-                            {{ $item->id_category }}
+                            {{ $item->category->category_name }}
                         </td>
                         <td class="project-state">
-                            <span class="badge badge-success">{{ $item->disable }}</span>
+                            @switch($item->status)
+                                @case('Active')
+                                    <span class="badge badge-success">{{ $item->status }}</span>
+                                    @break
+                                @case('Disabled')
+                                    <span class="badge badge-danger">{{ $item->status }}</span>
+                                    @break
+                                @default
+                                    <span class="badge badge-warning">{{ $item->status }}</span>
+                            @endswitch
                         </td>
                         <td class="project-actions text-right">
-                            <a class="btn btn-primary btn-sm" href="{{ url('/admin/news/1') }}">
+                            <a class="btn btn-primary btn-sm" href="{{ route('news.show', ['news' => $item]) }}">
                                 <i class="fas fa-folder">
                                 </i>
                                 View
                             </a>
-                            <a class="btn btn-info btn-sm" href="{{url('/admin/news/1/edit')}}">
+                            <a class="btn btn-info btn-sm" href="{{ route('news.edit', ['news' => $item]) }}">
                                 <i class="fas fa-pencil-alt">
                                 </i>
                                 Edit
                             </a>
-                            <a class="btn btn-danger btn-sm" href="#">
+                            <a class="btn btn-danger btn-sm delete-news" data-id="{{$item->id}}" data-token="{{ csrf_token() }}" href="#">
                                 <i class="fas fa-trash">
                                 </i>
                                 Delete
@@ -94,5 +103,8 @@
             </table>
         </div>
         <!-- /.card-body -->
+        <div class="paginate mt-5 mb-4 ml-2">
+            {{ $news->links() }}
+        </div>
     </div>
 @endsection

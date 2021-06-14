@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('category_name', 100);
             $table->text('category_description');
-            $table->boolean('disabled')->default(false);
+            $table->string('status')->default('disabled');
             $table->timestamps();
         });
     }

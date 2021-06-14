@@ -15,21 +15,21 @@ class CreateNewsTable extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('id_category')
-//                ->constrained()
+            $table->foreignId('category_id')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate()
+                ->constrained()
                 ->nullable();
-            $table->foreignId('id_resource')
-//                ->constrained()
+            $table->foreignId('resource_id')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate()
-                ->nullable();
+//                ->constrained()
+                ->nullable()->default(NULL);
             $table->string('news_title', 255);
             $table->text('news_description');
             $table->string('author', 190)->nullable();
             $table->string('news_image', 255)->nullable();
-            $table->boolean('disable')->default(false);
+            $table->string('status')->default('draft');
             $table->timestamps();
         });
     }

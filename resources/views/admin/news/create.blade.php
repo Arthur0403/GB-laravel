@@ -44,11 +44,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputStatus">Status</label>
-                                {{-- Нужно переписать миграцию                               --}}
                                 <select id="inputStatus" class="form-control custom-select" name="status">
                                     <option selected="">Draft</option>
-                                    <option>Published</option>
-                                    <option>Hold</option>
+                                    <option>Active</option>
+                                    <option>Disabled</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -57,7 +56,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputCategory">Category</label>
-                                <input type="text" id="inputCategory" class="form-control" name="id_category">
+                                <select id="inputCategory" class="form-control custom-select" name="category_id">
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <!-- /.card-body -->

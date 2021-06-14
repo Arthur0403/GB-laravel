@@ -65,15 +65,24 @@
                                 {{ $category->updated_at }}
                             </td>
                             <td class="project-state">
-                                <span class="badge badge-success">Active</span>
+                                @switch($category->status)
+                                    @case('Active')
+                                    <span class="badge badge-success">{{ $category->status }}</span>
+                                    @break
+                                    @case('Disabled')
+                                    <span class="badge badge-danger">{{ $category->status }}</span>
+                                    @break
+                                    @default
+                                    <span class="badge badge-warning">{{ $category->status }}</span>
+                                @endswitch
                             </td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="{{ url('/admin/categories/1') }}">
+                                <a class="btn btn-primary btn-sm" href="{{ url("/admin/categories/$category->id") }}">
                                     <i class="fas fa-folder">
                                     </i>
                                     View
                                 </a>
-                                <a class="btn btn-info btn-sm" href="{{url('/admin/categories/1/edit')}}">
+                                <a class="btn btn-info btn-sm" href="{{url("/admin/categories/$category->id/edit")}}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
                                     Edit

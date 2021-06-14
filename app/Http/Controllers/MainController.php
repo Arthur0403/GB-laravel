@@ -30,7 +30,7 @@ class MainController extends Controller
     public function categories()
     {
         return view('pages.categories', [
-            'newsList' => News::all(),
+            'newsList' => News::where(['status' => 'Active'])->get(),
         ]);
     }
 

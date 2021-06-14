@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::all();
+        $news = News::select('*')->with('category')->orderBy('id', 'desc')->simplePaginate(5);
         return view('admin.news.index', ['news' => $news]);
     }
 
@@ -26,7 +27,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('admin.news.create');
+        $categories = Category::all();
+        return view('admin.news.create', ['categories' => $categories]);
     }
 
     /**
@@ -37,22 +39,9 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-//        $newsFile = dirname(__FILE__, 5) . "/logs/news.txt";
-//        $createdNews = $request->all();
-//        $resString = "[\n";
-//        foreach ($createdNews as $key => $inputValue)
-//        {
-//            $resString .= "In field: $key - $inputValue; \n";
-//        }
-//        $resString .= "];\n";
-//        $fp = fopen($newsFile, "a+");
-//        fwrite($fp, $resString);
-//        fclose($fp);
-//        redirect('news/create');
-//        return response()->json($createdNews);
-        $fields = $request->only('news_title', 'news_description', 'author');
+        $fields = $request->only('news_title', 'news_description', 'author', 'category_id', 'status', 'resource_id');
+//        dd($fields);
         $news = News::create($fields);
-        $fields['id_category'] = 1;
 
         if($news)
         {
@@ -68,9 +57,9 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(News $news)
     {
-        return view('admin.news.show', ['id' => $id]);
+        return view('admin.news.show', ['news' => $news]);
     }
 
     /**
@@ -79,21 +68,34 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(News $news)
     {
-        return view('admin.news.edit', ['id' => $id]);
+        $categories = Category::all();
+        return view('admin.news.edit', [
+            'news' => $news,
+            'categories' => $categories
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param News $news
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, News $news)
     {
-        //
+        $fields = $request->only('news_title', 'news_description', 'author', 'category_id', 'status');
+
+        $news = $news->fill($fields)->save();
+
+        if($news)
+        {
+            return redirect('admin/news');
+        }
+
+        return back();
     }
 
     /**
@@ -104,6 +106,12 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        //
+//        News::where('id', '=', $id)->delete();
+        News::destroy($id);
+
+//        return response()->json([
+//            'success' => 'Record has been deleted successfully!'
+//        ]);
+        return back();
     }
 }

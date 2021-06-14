@@ -49,7 +49,7 @@
                                                     <div class="what-cap">
                                                         <span class="color1">{{ $news->category_name }}</span>
                                                         {{-- для того чтобы тут использовать хелпер нужно в категории передавать массив --}}
-                                                        <h4><a href="{{ route('category.news', ['id' => $news->id_news]) }}">{{ $news->news_title }}</a></h4>
+                                                        <h4><a href="{{ route('category.news', ['news' => $news->id]) }}">{{ $news->news_title }}</a></h4>
                                                     </div>
                                                 </div>
                                             </div>
