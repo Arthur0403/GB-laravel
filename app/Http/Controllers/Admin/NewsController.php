@@ -40,7 +40,6 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $fields = $request->only('news_title', 'news_description', 'author', 'category_id', 'status', 'resource_id');
-//        dd($fields);
         $news = News::create($fields);
 
         if($news)
@@ -82,7 +81,7 @@ class NewsController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param News $news
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, News $news)
     {

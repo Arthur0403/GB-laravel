@@ -43,7 +43,7 @@
                     @forelse($categories as $category)
                         <tr>
                             <td>
-                                {{ $category->id_category }}
+                                {{ $category->id }}
                             </td>
                             <td>
                                 <a>
@@ -51,7 +51,7 @@
                                 </a>
                                 <br>
                                 <small>
-                                    {{ $category->created_at }}
+                                    {{ $category->created_at->format('d.m.Y H:i') }}
                                 </small>
                             </td>
                             <td>
@@ -62,7 +62,7 @@
                                 </ul>
                             </td>
                             <td class="project_progress">
-                                {{ $category->updated_at }}
+                                {{ $category->updated_at->format('d.m.Y H:i') }}
                             </td>
                             <td class="project-state">
                                 @switch($category->status)
@@ -82,12 +82,12 @@
                                     </i>
                                     View
                                 </a>
-                                <a class="btn btn-info btn-sm" href="{{url("/admin/categories/$category->id/edit")}}">
+                                <a class="btn btn-info btn-sm" href="{{ url("/admin/categories/$category->id/edit") }}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
                                     Edit
                                 </a>
-                                <a class="btn btn-danger btn-sm" href="#">
+                                <a class="btn btn-danger btn-sm delete-category" href="#" data-id="{{$category->id}}" data-token="{{ csrf_token() }}">
                                     <i class="fas fa-trash">
                                     </i>
                                     Delete
@@ -103,5 +103,8 @@
             </table>
         </div>
         <!-- /.card-body -->
+        <div class="paginate mt-5 mb-4 ml-2">
+            {{ $categories->links() }}
+        </div>
     </div>
 @endsection

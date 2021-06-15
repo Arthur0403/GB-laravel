@@ -1,12 +1,18 @@
 $(".delete-news").click(function(event){
     event.preventDefault();
     console.log(event.target.dataset.id);
-    deleteNews(event.target.dataset.id, event.target.dataset.token);
+    deleteElement('news',event.target.dataset.id, event.target.dataset.token);
 });
 
-function deleteNews(id, token){
+$(".delete-category").click(function(event){
+    event.preventDefault();
+    console.log(event.target.dataset.id);
+    deleteElement('categories',event.target.dataset.id, event.target.dataset.token);
+});
+
+function deleteElement(elementName, id, token){
     $.ajax({
-        url: 'news/' + id,
+        url: elementName + '/' + id,
         type: 'DELETE',
         dataType: "JSON",
         data: {
@@ -15,6 +21,7 @@ function deleteNews(id, token){
         },
         success: function(data){
             console.log('it works');
+            console.log(this.url);
         }
     });
 }

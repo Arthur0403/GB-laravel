@@ -36,18 +36,18 @@
                         <div class="card-body" style="display: block;">
                             <div class="form-group">
                                 <label for="inputName">Category Name</label>
-                                <input type="text" id="inputName" class="form-control" name="name">
+                                <input type="text" id="inputName" class="form-control" name="category_name">
                             </div>
-                            <div class="form-group">
-                                <label for="inputAuthor">Author</label>
-                                <input type="text" id="inputAuthor" class="form-control" name="author">
-                            </div>
+{{--                            <div class="form-group">--}}
+{{--                                <label for="inputAuthor">Author</label>--}}
+{{--                                <input type="text" id="inputAuthor" class="form-control" name="author">--}}
+{{--                            </div>--}}
                             <div class="form-group">
                                 <label for="inputStatus">Status</label>
                                 <select id="inputStatus" class="form-control custom-select" name="status">
                                     <option selected="">Draft</option>
-                                    <option>Published</option>
-                                    <option>Hold</option>
+                                    <option>Active</option>
+                                    <option>Disabled</option>
                                 </select>
                             </div>
                         </div>

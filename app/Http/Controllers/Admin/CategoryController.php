@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::select('*')->orderBy('id', 'desc')->simplePaginate(5);;
         return view('admin.categories.index', [
             'categories' => $categories,
         ]);
@@ -35,34 +35,30 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request): \Illuminate\Http\JsonResponse
+    public function store(Request $request)
     {
-//        dd( dirname(__FILE__, 5));
-        $categoryFile = dirname(__FILE__, 5) . "/logs/categories.txt";
-        $createdCategory = $request->only('name', 'author');
-        $resStr = "[\n";
-        foreach ($createdCategory as $key => $inputValue)
+        $fields = $request->only('category_name', 'status');
+        $category = Category::create($fields);
+
+        if($category)
         {
-            $resStr .= "In field: $key - $inputValue; \n";
+            return redirect('admin/categories');
         }
-        $resStr .= "];\n";
-        $fp = fopen($categoryFile, "a+");
-        fwrite($fp, $resStr);
-        fclose($fp);
-        return response()->json($createdCategory);
+
+        return back();
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        return view('admin.categories.show');
+        return view('admin.categories.show', ['category' => $category]);
     }
 
     /**
@@ -71,9 +67,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        return view('admin.categories.edit');
+        return view('admin.categories.edit', ['category' => $category]);
     }
 
     /**
@@ -81,11 +77,20 @@ class CategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $fields = $request->only('category_name', 'status');
+
+        $category = $category->fill($fields)->save();
+
+        if($category)
+        {
+            return redirect('admin/categories');
+        }
+
+        return back();
     }
 
     /**
@@ -96,6 +101,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::destroy($id);
+
+        return back();
     }
 }

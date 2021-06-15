@@ -25,7 +25,7 @@ class CategoriesSeeder extends Seeder
         {
             $data[] = [
                 'category_name' => $faker->sentence(mt_rand(3, 10)),
-                'category_description' => $faker->text(150),
+//                'category_description' => $faker->text(150),
                 'created_at' => now(),
                 'updated_at' => now()
             ];

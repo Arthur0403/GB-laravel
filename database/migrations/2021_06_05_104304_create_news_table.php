@@ -18,7 +18,7 @@ class CreateNewsTable extends Migration
             $table->foreignId('category_id')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate()
-                ->constrained()
+//                ->constrained()
                 ->nullable();
             $table->foreignId('resource_id')
                 ->cascadeOnDelete()

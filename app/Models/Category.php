@@ -14,6 +14,10 @@ class Category extends Model
 
     protected $primaryKey = 'id';
 
+    protected $fillable = [
+        'category_name', 'status'
+    ];
+
     //связь
     public function news(): HasMany //news - имя связи
     {
