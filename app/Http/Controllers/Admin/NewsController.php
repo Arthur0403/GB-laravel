@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsCreate;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(NewsCreate $request)
     {
         $fields = $request->only('news_title', 'news_description', 'author', 'category_id', 'status', 'resource_id');
         $news = News::create($fields);
