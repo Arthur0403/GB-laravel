@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsCreate;
+use App\Http\Requests\NewsEdit;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
@@ -84,7 +85,7 @@ class NewsController extends Controller
      * @param News $news
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, News $news)
+    public function update(NewsEdit $request, News $news)
     {
         $fields = $request->only('news_title', 'news_description', 'author', 'category_id', 'status');
 

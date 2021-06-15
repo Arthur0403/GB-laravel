@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryCreate;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -37,7 +38,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(CategoryCreate $request)
     {
         $fields = $request->only('category_name', 'status');
         $category = Category::create($fields);
@@ -79,7 +80,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryCreate $request, Category $category)
     {
         $fields = $request->only('category_name', 'status');
 

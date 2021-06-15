@@ -35,9 +35,16 @@
                         </div>
                         <div class="card-body" style="display: block;">
                             <div class="form-group">
-                                <label for="inputName">Category Name</label>
+                                <label for="inputName">Category Name*</label>
                                 <input type="text" id="inputName" class="form-control" name="category_name">
                             </div>
+                            @if($errors->has('category_name'))
+                                <div class="alert alert-danger mt-2">
+                                    @foreach($errors->get('category_name') as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                </div>
+                            @endif
 {{--                            <div class="form-group">--}}
 {{--                                <label for="inputAuthor">Author</label>--}}
 {{--                                <input type="text" id="inputAuthor" class="form-control" name="author">--}}
@@ -56,7 +63,7 @@
                     <!-- /.card -->
                     <div class="col-12">
                         <a href="#" class="btn btn-secondary">Cancel</a>
-                        <input type="submit" value="Create News" class="btn btn-success float-right">
+                        <input type="submit" value="Create Category" class="btn btn-success float-right">
                     </div>
                 </form>
             </div>
