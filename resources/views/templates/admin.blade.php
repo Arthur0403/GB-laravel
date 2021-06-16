@@ -35,10 +35,45 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="{{ url('/admin/news') }}" class="nav-link">News</a>
             </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{{ url('/admin/users') }}" class="nav-link">Users</a>
+            </li>
         </ul>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
+            <!-- Authentication Links -->
+            @guest
+                @if (Route::has('login'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Вход') }}</a>
+                    </li>
+                @endif
+
+                @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
+                    </li>
+                @endif
+            @else
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }}
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+        @endguest
             <!-- Navbar Search -->
             <li class="nav-item">
                 <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -91,7 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <img src="/assets/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">John Doe (Admin)</a>
+                    <a href="#" class="d-block">{{ Auth::user()->name }} {{ Auth::user()->is_admin ? '(Admin)' : '(Redactor)' }}</a>
                 </div>
             </div>
 
@@ -151,6 +186,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('/admin/news') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Show All</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i>
+                            <p>
+                                Users
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="display: none;">
+                            <li class="nav-item">
+                                <a href="{{ url('/admin/users') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Show All</p>
                                 </a>

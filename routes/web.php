@@ -1,10 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Account\IndexController as AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +20,23 @@ use App\Http\Controllers\Admin\MainController as AdminMainController;
 |
 */
 
-/* Admin */
-Route::group(['prefix' => 'admin'], function(){
-    Route::resource('/', AdminMainController::class);
-    Route::resource('/categories', AdminCategoryController::class);
-    Route::resource('/news', AdminNewsController::class);
+/* Account */
+Route::group(['middleware' => 'auth'], function(){
+    Route::group(['prefix' => 'account'], function(){
+        Route::get('/', AccountController::class)->name('account');
+        Route::get('/logout',function(){
+            Auth::logout();
+            return redirect()->route('login');
+        })->name('account.logout');
+    });
+
+    /* Admin */
+    Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
+        Route::resource('/', AdminMainController::class);
+        Route::resource('/categories', AdminCategoryController::class);
+        Route::resource('/news', AdminNewsController::class);
+        Route::resource('/users', AdminUserController::class);
+    });
 });
 
 
@@ -33,3 +48,7 @@ Route::get('/contact', [MainController::class, 'contact'])->name('contact');
 Route::get('/categories', [MainController::class, 'categories'])->name('categories');
 Route::get('/categories/{news}', [MainController::class, 'news'])->name('category.news');
 //Route::get('/error', [MainController::class, 'error']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
