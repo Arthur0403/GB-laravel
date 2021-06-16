@@ -55,6 +55,41 @@
                             </div>
                             <div class="header-info-right">
                                 <ul class="header-social">
+                                    <!-- Authentication Links -->
+                                    @guest
+                                        @if (Route::has('login'))
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ route('login') }}">{{ __('Вход') }}</a>
+                                            </li>
+                                        @endif
+
+                                        @if (Route::has('register'))
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
+                                            </li>
+                                        @endif
+                                    @else
+                                        <li class="nav-item dropdown">
+                                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                {{ Auth::user()->name }}
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="{{ route('logout') }}" style="color: inherit"
+                                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                    {{ __('Выйти') }}
+                                                </a>
+
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                    @csrf
+                                                </form>
+                                                <a class="dropdown-item" href="{{ route('account') }}" style="color: inherit">
+                                                    Мой кабинет
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endguest
                                     <li><a href="#"><i class="fab fa-twitter"></i></a></li>
                                     <li><a href="#"><i class="fab fa-instagram"></i></a></li>
                                     <li> <a href="#"><i class="fab fa-pinterest-p"></i></a></li>
@@ -94,10 +129,10 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a href="/">Home</a></li>
-                                        <li><a href="/categories">Category</a></li>
-                                        <li><a href="/about">About</a></li>
-                                        <li><a href="/latest-news">Latest News</a></li>
-                                        <li><a href="/contact">Contact</a></li>
+                                        <li><a href="{{ route('categories')  }}">Category</a></li>
+                                        <li><a href="{{ route('about')  }}">About</a></li>
+                                        <li><a href="{{ route('latest-news')  }}">Latest News</a></li>
+                                        <li><a href="{{ route('contact')  }}">Contact</a></li>
 {{--                                        <li><a href="#">Pages</a>--}}
 {{--                                            <ul class="submenu">--}}
 {{--                                                <li><a href="elements.html">Element</a></li>--}}
