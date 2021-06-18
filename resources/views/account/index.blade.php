@@ -9,6 +9,9 @@
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="blog_left_sidebar">
                         <h1>Hello, {{ Auth::user()->name }}</h1>
+                        @if(Auth::user()->avatar)
+                        <img src="{{ Auth::user()->avatar }}" alt="" height="200">
+                        @endif
                         <a href=""></a>
                     </div>
                 </div>

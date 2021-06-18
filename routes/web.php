@@ -7,7 +7,10 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\ResourcesController as AdminResourcesController;
+use App\Http\Controllers\Admin\ParserController;
 use App\Http\Controllers\Account\IndexController as AccountController;
+use App\Http\Controllers\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +39,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('/categories', AdminCategoryController::class);
         Route::resource('/news', AdminNewsController::class);
         Route::resource('/users', AdminUserController::class);
+        Route::resource('/resources', AdminResourcesController::class);
+        Route::get('/parser', [ParserController::class, 'index']);
     });
 });
 
@@ -52,3 +57,7 @@ Route::get('/categories/{news}', [MainController::class, 'news'])->name('categor
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'guest'], function(){
+    Route::get('/login/vk', [SocialController::class, 'login'])->name('vk.login');
+    Route::get('/callback/vk', [SocialController::class, 'callback'])->name('vk.callback');
+});
