@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsCreate;
 use App\Http\Requests\NewsEdit;
 use App\Models\Category;
+use App\Models\FileUploadService;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class NewsController extends Controller
 {
@@ -18,7 +20,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::select('*')->with('category')->orderBy('id', 'desc')->simplePaginate(5);
+        $news = News::select('id', 'category_id', 'news_title', 'news_description', 'status', 'created_at', 'updated_at')->with('category')->orderBy('id', 'desc')->simplePaginate(5);
+//        dd($news);
         return view('admin.news.index', ['news' => $news]);
     }
 
@@ -39,9 +42,10 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(NewsCreate $request)
+    public function store(NewsCreate $request, FileUploadService $uploadedService)
     {
         $fields = $request->only('news_title', 'news_description', 'author', 'category_id', 'status', 'resource_id');
+        $fields['image'] = $uploadedService->upload($request);
         $news = News::create($fields);
 
         if($news)
@@ -85,9 +89,10 @@ class NewsController extends Controller
      * @param News $news
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(NewsEdit $request, News $news)
+    public function update(NewsEdit $request, News $news, FileUploadService $uploadedService)
     {
         $fields = $request->only('news_title', 'news_description', 'author', 'category_id', 'status');
+        $fields['image'] = $uploadedService->upload($request);
 
         $news = $news->fill($fields)->save();
 

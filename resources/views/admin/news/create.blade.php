@@ -26,12 +26,11 @@
     <section class="content">
         <div class="row pb-2">
             <div class="col-md-6 mx-auto">
-                <form action="{{ route('news.store') }}" method="post">
+                <form action="{{ route('news.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title">General</h3>
-
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                     <i class="fas fa-minus"></i>
@@ -49,6 +48,10 @@
                                         @endforeach
                                     </div>
                                 @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="inputImg">Img</label>
+                                <input type="file" id="inputImg" class="form-control" name="image">
                             </div>
                             <div class="form-group">
                                 <label for="inputDescription">News Content*</label>

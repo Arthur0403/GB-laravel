@@ -21,7 +21,7 @@
     <section class="content">
         <div class="row pb-2">
             <div class="col-md-6 mx-auto">
-                <form action="{{ route('news.update', ['news'=> $news]) }}" method="post">
+                <form action="{{ route('news.update', ['news'=> $news]) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <div class="card card-primary">
@@ -45,6 +45,10 @@
                                         @endforeach
                                     </div>
                                 @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="inputImg">Img</label>
+                                <input type="file" id="inputImg" class="form-control" name="image">
                             </div>
                             <div class="form-group">
                                 <label for="inputDescription">News Content*</label>
