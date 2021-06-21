@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php //declare(strict_types=1);
 
 
 namespace App\Services;
@@ -15,6 +15,7 @@ class ParserService implements ParserServiceContract
      */
     public function getNews(string $url): array
     {
+
         $xml = \XmlParser::load($url);
         return $xml->parse([
             'title' =>  [

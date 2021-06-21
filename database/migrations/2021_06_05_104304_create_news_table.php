@@ -18,13 +18,14 @@ class CreateNewsTable extends Migration
             $table->foreignId('category_id')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate()
-//                ->constrained()
-                ->nullable();
+                ->nullable()
+                ->constrained();
             $table->foreignId('resource_id')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate()
-//                ->constrained()
-                ->nullable()->default(NULL);
+                ->nullable()
+                ->default(NULL)
+                ->constrained();
             $table->string('news_title', 255);
             $table->text('news_description');
             $table->string('author', 190)->nullable();
