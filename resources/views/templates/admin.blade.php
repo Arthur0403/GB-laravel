@@ -15,17 +15,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/assets/admin/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/assets/admin/dist/css/adminlte.min.css">
-    <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#inputDescription' ) )
-            .then( editor => {
-                console.log( editor );
-            } )
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -250,5 +239,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="/assets/admin/dist/js/adminlte.min.js"></script>
 <script src="/assets/admin/index.js"></script>
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script>
+    CKEDITOR.replace( 'inputDescription' );
+</script>
 </body>
 </html>

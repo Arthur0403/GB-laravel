@@ -6,11 +6,13 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Resources</h3><br>
-            <p>Обратите внимание, в данный момент доступны только ресурсы с яндекс музыки</p>
+            <p>{{ session('status') }}</p>
             <form action="{{route('resources.store')}}" method="post">
                 @csrf
-                <label for="resource">Enter url, please</label>
-                <input type="text" id="resource" name="resource">
+                <label for="resource_name">Name of resource</label><br>
+                <input type="text" id="resource_name" name="resource_name"><br>
+                <label for="resource_link">Enter url, please</label><br>
+                <input type="text" id="resource_link" name="source_link"><br>
                 <input type="submit" value="Add resource">
             </form>
             <div class="card-tools">

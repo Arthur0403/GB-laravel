@@ -6,12 +6,15 @@ use App\Jobs\NewsJob;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ParserService;
+use Illuminate\Support\Facades\Redis;
 
 class ParserController extends Controller
 {
     public function index(ParserService $parserService)
     {
         $start = date('c');
+        $parserService->getNews('https://news.yandex.ru/auto.rss', 23);
+//        dd($parserService->getNews('https://news.yandex.ru/auto.rss', 23)['news']);
         $rssLinks = [
             'https://news.yandex.ru/auto.rss',
             'https://news.yandex.ru/auto_racing.rss',
@@ -32,13 +35,10 @@ class ParserController extends Controller
             'https://news.yandex.ru/nhl.rss',
         ];
 
-//       NewsJob::dispatch($service, $urls);
-
        foreach ($rssLinks as $link)
        {
-//           dump($parserService->getNews($link));
-           NewsJob::dispatch($link);
-           dump(NewsJob::dispatch($link));
+           dump($parserService->getNews($link));
+           NewsJob::dispatch($link); //добавление задачи в очередь
        }
 
 //        echo "Запись успешно выполнена";

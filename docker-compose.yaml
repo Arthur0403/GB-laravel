@@ -27,6 +27,6 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=laravel
   queue:
-    image: redis:5-alpine
+    image: redis
     ports:
-      - 6379:6379
+      - 6003:6379

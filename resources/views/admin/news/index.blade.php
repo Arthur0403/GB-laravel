@@ -62,7 +62,7 @@
                             </ul>
                         </td>
                         <td class="project_progress">
-                            {{ $item->category->category_name }}
+{{--                            {{ $item->category->category_name }}--}}
                         </td>
                         <td class="project-state">
                             @switch($item->status)

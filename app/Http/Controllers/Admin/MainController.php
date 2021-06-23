@@ -12,7 +12,6 @@ class MainController extends Controller
     public function index()
     {
         $user = Auth::user();
-        dd(Redis::getFacadeRoot());
         return view("admin.index",['user' => $user]);
     }
 }

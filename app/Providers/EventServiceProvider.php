@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\AddResourceEvent;
 use App\Events\UserEvent;
+use App\Listeners\AddResourceListener;
 use App\Listeners\UserListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -29,6 +31,10 @@ class EventServiceProvider extends ServiceProvider
             // ... other providers
             'SocialiteProviders\\VKontakte\\VKontakteExtendSocialite@handle',
         ],
+
+        AddResourceEvent::class => [
+            AddResourceListener::class,
+        ]
     ];
 
     /**

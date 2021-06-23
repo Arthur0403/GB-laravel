@@ -2,6 +2,10 @@
 
 namespace App\Console;
 
+use App\Models\News;
+use App\Models\Resources;
+use App\Services\ConsoleNewsUpdateService;
+use App\Services\ParserService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -25,6 +29,14 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+//        $schedule->call(function(){
+//            $resources = Resources::select('id', 'source_link')->get();
+//
+//            foreach ($resources as $resource)
+//            {
+//                ConsoleNewsUpdateService::class->addNewsToDb($resource->source_link, $resource->id);
+//            }
+//        });
     }
 
     /**
