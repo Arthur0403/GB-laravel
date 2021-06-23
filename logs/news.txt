@@ -1,0 +1,26 @@
+[In field: _token - xi8AE1Sl9qMymmAwdbSjeQKN34HYp55c0dV2WGVg; 
+In field: title - Mars; 
+In field: description - Mars... Is it god or planet?; 
+In field: status - Draft; 
+In field: author - amogus; 
+];[
+In field: _token - xi8AE1Sl9qMymmAwdbSjeQKN34HYp55c0dV2WGVg; 
+In field: title - Mars; 
+In field: description - Mars... Is it god or planet?; 
+In field: status - Draft; 
+In field: author - amogus; 
+];
+[
+In field: _token - xi8AE1Sl9qMymmAwdbSjeQKN34HYp55c0dV2WGVg; 
+In field: title - Venus; 
+In field: description - What is Venus?; 
+In field: status - Published; 
+In field: author - amogus; 
+];
+[
+In field: _token - xi8AE1Sl9qMymmAwdbSjeQKN34HYp55c0dV2WGVg; 
+In field: title - Venus; 
+In field: description - What is Venus?; 
+In field: status - Published; 
+In field: author - amogus; 
+];

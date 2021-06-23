@@ -2,6 +2,13 @@
 
 namespace App\Providers;
 
+use App\Contracts\ParserServiceContract;
+use App\Contracts\SocialServiceContract;
+use App\Models\FileUploadService;
+use App\Services\ConsoleNewsUpdateService;
+use App\Services\NewsSaveService;
+use App\Services\ParserService;
+use App\Services\SocialService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->bind(ParserServiceContract::class, ParserService::class);
+        $this->app->bind(SocialServiceContract::class, SocialService::class);
+        $this->app->bind(FileUploadService::class, FileUploadService::class);
+        $this->app->bind(NewsSaveService::class, NewsSaveService::class);
+        $this->app->bind(ConsoleNewsUpdateService::class, ConsoleNewsUpdateService::class);
     }
 }
